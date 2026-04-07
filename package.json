@@ -1,0 +1,13 @@
+{
+  "name": "rock-fitness-app",
+  "version": "1.0.0",
+  "description": "Rock Fitness Studio fully premium working website with sleek design and backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  }
+}
