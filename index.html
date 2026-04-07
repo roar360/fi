@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rock Fitness Club — Premium Hyderabad Gym</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300&family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:       #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim:   #7a6230;
+    --black:      #080808;
+    --deep:       #0f0f0f;
+    --charcoal:   #161616;
+    --mid:        #1f1f1f;
+    --border:     rgba(201,168,76,0.18);
+    --light:      #f2ead8;
+    --muted:      #7a7060;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--black); color:var(--light); font-family:'Montserrat',sans-serif; overflow-x:hidden; }
+  ::-webkit-scrollbar { width:3px; }
+  ::-webkit-scrollbar-track { background:var(--black); }
+  ::-webkit-scrollbar-thumb { background:var(--gold-dim); }
+
+  /* ── NAV ── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 64px;
+    background:rgba(8,8,8,0.96);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo { font-family:'Bebas Neue',sans-serif; font-size:1.85rem; letter-spacing:5px; color:var(--light); display:flex; align-items:center; }
+  .logo .g { color:var(--gold); }
+  .nav-links { display:flex; gap:38px; list-style:none; }
+  .nav-links a {
+    color:rgba(242,234,216,0.5); text-decoration:none; font-size:0.67rem;
+    font-weight:600; letter-spacing:2.5px; text-transform:uppercase; transition:color 0.25s; position:relative;
+  }
+  .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--gold); transform:scaleX(0); transition:transform 0.25s; }
+  .nav-links a:hover { color:var(--gold); }
+  .nav-links a:hover::after { transform:scaleX(1); }
+  
+  .btn-gold { background:var(--gold); color:var(--black); padding:14px 38px; border:1px solid var(--gold); font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:800; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:background 0.22s,color 0.22s, transform 0.2s; }
+  .btn-gold:hover { background:transparent; color:var(--gold); transform: translateY(-2px); }
+  .btn-ol { background:transparent; color:rgba(242,234,216,0.6); padding:14px 38px; border:1px solid rgba(242,234,216,0.2); font-family:'Montserrat',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; cursor:pointer; transition:border-color 0.22s,color 0.22s; }
+  .btn-ol:hover { border-color:var(--gold); color:var(--gold); }
+  
+  .nav-cta { padding:10px 28px; font-size:0.67rem; }
+
+  /* ── HERO ── */
+  .hero { position:relative; height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 64px 100px; overflow:hidden; }
+  .hero-img { position:absolute; inset:0; background-image:url('assets/hero_gym.png'); background-size:cover; background-position:center 25%; filter:brightness(0.28) saturate(0.7) sepia(0.3); transform:scale(1.06); animation:heroZoom 9s ease-out forwards; }
+  @keyframes heroZoom { to { transform:scale(1); } }
+  .hero-ov { position:absolute; inset:0; background: radial-gradient(ellipse at 60% 35%,rgba(201,168,76,0.1) 0%,transparent 55%), linear-gradient(180deg,rgba(8,8,8,0.05) 0%,rgba(8,8,8,0.5) 50%,var(--black) 100%); z-index:1; }
+  .hero-content { position:relative; z-index:2; max-width:820px; }
+  .hero-eyebrow { display:inline-flex; align-items:center; gap:10px; font-size:0.6rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; animation:fadeUp 1s ease both; }
+  .eline { width:30px; height:1px; background:var(--gold); }
+  .hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(4.5rem,10vw,9.5rem); line-height:0.9; letter-spacing:3px; color:var(--light); animation:fadeUp 1s 0.15s ease both; }
+  .hero-title .g { color:var(--gold); }
+  .hero-title .s { -webkit-text-stroke:1px var(--gold-dim); color:transparent; }
+  .hero-it { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300; font-style:italic; color:rgba(242,234,216,0.5); margin-top:16px; animation:fadeUp 1s 0.28s ease both; }
+  .hero-div { width:55px; height:1px; background:linear-gradient(90deg,var(--gold),transparent); margin:20px 0; animation:fadeUp 1s 0.36s ease both; }
+  .hero-sub { font-size:0.82rem; font-weight:300; color:rgba(242,234,216,0.48); line-height:1.8; max-width:440px; animation:fadeUp 1s 0.44s ease both; }
+  .hero-acts { margin-top:36px; display:flex; gap:16px; animation:fadeUp 1s 0.54s ease both; }
+  
+  .hero-stats { position:absolute; right:64px; bottom:100px; z-index:2; display:flex; flex-direction:column; gap:30px; animation:fadeUp 1s 0.64s ease both; }
+  .stat { text-align:right; }
+  .stat-n { font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--gold); line-height:1; }
+  .stat-sep { width:100%; height:1px; background:linear-gradient(90deg,transparent,var(--gold-dim)); margin:4px 0; }
+  .stat-l { font-size:0.57rem; font-weight:600; letter-spacing:2.5px; color:var(--muted); text-transform:uppercase; }
+  .hero-scroll { position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:8px; animation:fadeIn 2s 1.2s ease both; }
+  .hero-scroll span { font-size:0.5rem; letter-spacing:4px; color:var(--muted); text-transform:uppercase; }
+  .sline { width:1px; height:48px; background:linear-gradient(var(--gold),transparent); animation:pulse 2.2s ease-in-out infinite; }
+
+  /* ── MARQUEE ── */
+  .mq { padding:14px 0; overflow:hidden; white-space:nowrap; background:var(--charcoal); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .mq-inner { display:inline-flex; gap:52px; animation:mq 32s linear infinite; }
+  .mq-item { font-family:'Bebas Neue',sans-serif; font-size:0.92rem; letter-spacing:4px; color:var(--muted); }
+  .mq-gem { color:var(--gold); font-size:0.5rem; }
+  @keyframes mq { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+  /* ── COMMONS ── */
+  section { padding:110px 64px; }
+  .lbl { display:inline-flex; align-items:center; gap:10px; font-size:0.58rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+  .lline { width:24px; height:1px; background:var(--gold); }
+  .ttl { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.8rem,5vw,5rem); line-height:0.95; letter-spacing:2px; color:var(--light); }
+  .ttl .g { color:var(--gold); }
+  .sub { font-size:0.83rem; font-weight:300; color:var(--muted); line-height:1.85; max-width:480px; margin-top:18px; }
+
+  /* ── ABOUT ── */
+  .about { background:var(--deep); display:grid; grid-template-columns:1fr 1fr; gap:90px; align-items:center; }
+  .aimg-wrap { position:relative; height:560px; overflow:hidden; }
+  .aimg-wrap::before { content:''; position:absolute; top:-14px; left:-14px; width:52%; height:52%; border:1px solid rgba(201,168,76,0.35); z-index:1; pointer-events:none; }
+  .aimg-wrap::after { content:''; position:absolute; bottom:-14px; right:-14px; width:42%; height:42%; border:1px solid rgba(201,168,76,0.15); z-index:1; pointer-events:none; }
+  .aimg { width:100%; height:100%; object-fit:cover; filter:brightness(0.6) saturate(0.75) sepia(0.2); transition:transform 0.7s; }
+  .aimg-wrap:hover .aimg { transform:scale(1.04); }
+  .abadge { position:absolute; bottom:26px; left:26px; z-index:2; background:rgba(8,8,8,0.93); border:1px solid var(--gold); padding:16px 20px; display:flex; align-items:center; gap:14px; }
+  .b-num { font-family:'Bebas Neue',sans-serif; font-size:2.6rem; color:var(--gold); line-height:1; }
+  .b-stars { color:var(--gold); font-size:0.85rem; letter-spacing:2px; }
+  .b-sub { font-size:0.62rem; color:var(--muted); margin-top:3px; }
+  .afeats { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:42px; }
+  .feat { display:flex; align-items:flex-start; gap:14px; padding:17px; background:var(--charcoal); border-left:2px solid transparent; transition:border-color 0.3s,background 0.3s; }
+  .feat:hover { border-left-color:var(--gold); background:var(--mid); }
+  .ficon { width:36px; height:36px; min-width:36px; background:rgba(201,168,76,0.09); display:flex; align-items:center; justify-content:center; font-size:1rem; }
+  .fname { font-size:0.76rem; font-weight:700; color:var(--light); }
+  .fdesc { font-size:0.65rem; color:var(--muted); margin-top:3px; }
+
+  /* ── GALLERY ── */
+  .gal { background:var(--black); padding-left:64px; padding-right:0; overflow:hidden; }
+  .gal-hdr { display:flex; justify-content:space-between; align-items:flex-end; padding-right:64px; margin-bottom:50px; }
+  .gtrack-w { overflow:hidden; }
+  .gtrack { display:flex; gap:14px; animation:gscroll 32s linear infinite; width:max-content; }
+  .gtrack:hover { animation-play-state:paused; }
+  @keyframes gscroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .gc { flex:0 0 400px; height:285px; overflow:hidden; position:relative; cursor:pointer; }
+  .gc img { width:100%; height:100%; object-fit:cover; filter:brightness(0.55) saturate(0.7) sepia(0.2); transition:transform 0.55s,filter 0.4s; }
+  .gc:hover img { transform:scale(1.09); filter:brightness(0.88) saturate(1) sepia(0); }
+  .gov { position:absolute; inset:0; background:linear-gradient(180deg,transparent 45%,rgba(8,8,8,0.85) 100%); display:flex; align-items:flex-end; padding:18px 20px; opacity:0; transition:opacity 0.35s; }
+  .gc:hover .gov { opacity:1; }
+  .glabel { font-size:0.62rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); }
+  .gc::before { content:''; position:absolute; top:10px; left:10px; width:26px; height:26px; border-top:1.5px solid var(--gold); border-left:1.5px solid var(--gold); opacity:0; transition:opacity 0.35s; z-index:2; }
+  .gc:hover::before { opacity:1; }
+
+  /* ── SERVICES ── */
+  .svcs { background:var(--deep); }
+  .svcs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:62px; }
+  .svc { position:relative; padding:46px 34px; background:var(--charcoal); border-top:2px solid transparent; overflow:hidden; transition:border-color 0.35s,transform 0.35s; }
+  .svc::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(201,168,76,0.045) 0%,transparent 65%); opacity:0; transition:opacity 0.4s; }
+  .svc:hover::before { opacity:1; }
+  .svc:hover { border-top-color:var(--gold); transform:translateY(-5px); }
+  .svc-n { font-family:'Bebas Neue',sans-serif; font-size:3.2rem; color:rgba(201,168,76,0.07); line-height:1; margin-bottom:14px; transition:color 0.35s; }
+  .svc:hover .svc-n { color:rgba(201,168,76,0.2); }
+  .svc-ico { font-size:1.9rem; margin-bottom:12px; }
+  .svc-nm { font-family:'Bebas Neue',sans-serif; font-size:1.45rem; letter-spacing:2px; color:var(--light); margin-bottom:10px; }
+  .svc-bar { width:30px; height:1px; background:var(--gold-dim); margin-bottom:13px; transition:width 0.35s,background 0.35s; }
+  .svc:hover .svc-bar { width:52px; background:var(--gold); }
+  .svc-d { font-size:0.77rem; font-weight:300; color:rgba(242,234,216,0.42); line-height:1.75; }
+
+  /* ── REVIEWS ── */
+  .revs { background:var(--black); }
+  .revs-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:58px; }
+  .rev { padding:32px; background:var(--charcoal); border:1px solid var(--border); position:relative; overflow:hidden; transition:border-color 0.3s; }
+  .rev:hover { border-color:rgba(201,168,76,0.48); }
+  .rev::before { content:'"'; font-family:'Cormorant Garamond',serif; font-size:9rem; line-height:1; color:rgba(201,168,76,0.07); position:absolute; top:-14px; right:16px; }
+  .rev-stars { color:var(--gold); font-size:0.8rem; letter-spacing:3px; margin-bottom:16px; }
+  .rev-txt { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; font-weight:300; color:rgba(242,234,216,0.68); line-height:1.7; margin-bottom:24px; }
+  .rev-bar { width:26px; height:1px; background:var(--gold); margin-bottom:12px; }
+  .rev-nm { font-size:0.68rem; font-weight:700; letter-spacing:2px; color:var(--light); }
+  .rev-src { font-size:0.6rem; color:var(--muted); margin-top:3px; }
+
+  /* ── LOCATION ── */
+  .loc-sec { background:var(--charcoal); display:grid; grid-template-columns:1fr 1fr; gap:0; padding:0; }
+  .loc-info { padding:90px 64px; }
+  .loc-vis { position:relative; min-height:520px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .loc-vis img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.2) saturate(0.4) sepia(0.5); }
+  .loc-card { position:relative; z-index:1; border:1px solid var(--gold); padding:38px 34px; text-align:center; background:rgba(8,8,8,0.82); backdrop-filter:blur(10px); }
+  .lpin { font-size:2.6rem; animation:pinf 3s ease-in-out infinite; }
+  @keyframes pinf { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+  .lname { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:4px; color:var(--gold); margin-top:10px; }
+  .laddr { font-size:0.73rem; color:rgba(242,234,216,0.42); line-height:1.7; margin-top:8px; }
+  .addr-rows { margin-top:42px; }
+  .arow { display:flex; align-items:flex-start; gap:16px; padding:17px 0; border-bottom:1px solid rgba(201,168,76,0.1); }
+  .aico { color:var(--gold); font-size:0.95rem; min-width:20px; margin-top:2px; }
+  .albl { font-size:0.56rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold-dim); }
+  .aval { font-size:0.81rem; color:var(--light); margin-top:4px; line-height:1.55; }
+  .opill { display:inline-block; background:rgba(34,197,94,0.12); color:#22c55e; border:1px solid rgba(34,197,94,0.25); font-size:0.58rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:3px 8px; margin-left:7px; }
+  .loc-ctas { display:flex; gap:13px; flex-wrap:wrap; margin-top:38px; }
+
+  /* ── CTA BAND ── */
+  .cta-band { padding:78px 64px; background:var(--deep); border-top:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:48px; position:relative; overflow:hidden; }
+  .cta-band::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 50%,rgba(201,168,76,0.07) 0%,transparent 60%); pointer-events:none; }
+  .cta-ttl { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,4vw,3.8rem); letter-spacing:3px; line-height:1; }
+  .cta-ttl .g { color:var(--gold); }
+  .cta-sub { font-size:0.8rem; font-weight:300; color:var(--muted); margin-top:10px; }
+
+  /* ── MODAL UI ── */
+  .modal-overlay {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(8,8,8,0.85); backdrop-filter:blur(8px);
+      z-index:999; display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity 0.3s ease;
+  }
+  .modal-overlay.active { opacity:1; pointer-events:all; }
+  .modal-card {
+      background:var(--charcoal); border:1px solid var(--gold);
+      padding:48px; width:100%; max-width:480px; position:relative;
+      transform:translateY(30px); transition:transform 0.3s ease;
+      box-shadow:0 20px 60px rgba(0,0,0,0.8);
+  }
+  .modal-overlay.active .modal-card { transform:translateY(0); }
+  .modal-close {
+      position:absolute; top:20px; right:20px; color:var(--muted);
+      cursor:pointer; font-size:1.5rem; background:transparent; border:none; transition:color 0.2s;
+  }
+  .modal-close:hover { color:var(--gold); }
+  .modal-title { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; letter-spacing:3px; color:var(--light); line-height:1; margin-bottom:8px; }
+  .modal-title span { color:var(--gold); }
+  .modal-sub { font-size:0.75rem; color:var(--muted); margin-bottom:28px; }
+  
+  .form-group { margin-bottom:18px; }
+  .form-group label { display:block; font-size:0.6rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold-dim); margin-bottom:6px; }
+  .form-group input, .form-group select, .form-group textarea {
+      width:100%; background:var(--deep); border:1px solid var(--border);
+      padding:14px 16px; color:var(--light); font-family:'Montserrat',sans-serif;
+      font-size:0.8rem; outline:none; transition:border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color:var(--gold);
+  }
+  .form-msg { font-size:0.7rem; padding:10px; margin-bottom:16px; display:none; border:1px solid transparent; }
+  .form-msg.success { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.1); display:block; }
+  .form-msg.error { border-color:#ef4444; color:#fca5a5; background:rgba(239,68,68,0.1); display:block; }
+  
+  .loader { display:none; border:2px solid rgba(201,168,76,0.3); border-top:2px solid var(--gold); border-radius:50%; width:16px; height:16px; animation:spin 1s linear infinite; margin-left:10px; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  /* ── FOOTER ── */
+  footer { background:#000; padding:60px 64px 30px; border-top:1px solid var(--border); }
+  .ft { display:flex; justify-content:space-between; align-items:flex-start; padding-bottom:46px; border-bottom:1px solid rgba(201,168,76,0.1); }
+  .flogo { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:5px; color:var(--light); }
+  .flogo span { color:var(--gold); }
+  .ftag { font-family:'Cormorant Garamond',serif; font-size:0.95rem; font-style:italic; font-weight:300; color:var(--muted); margin-top:6px; }
+  .flinks { display:flex; gap:68px; }
+  .fcolt { font-size:0.58rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:17px; }
+  .fcol a { display:block; font-size:0.77rem; font-weight:300; color:rgba(242,234,216,0.38); text-decoration:none; margin-bottom:10px; transition:color 0.2s; }
+  .fcol a:hover { color:var(--gold); }
+  .fb { padding-top:24px; display:flex; justify-content:space-between; align-items:center; }
+  .fcopy { font-size:0.64rem; color:var(--muted); }
+  .socs { display:flex; gap:10px; }
+  .soc { width:36px; height:36px; border:1px solid rgba(201,168,76,0.18); display:flex; align-items:center; justify-content:center; font-size:0.9rem; color:var(--muted); text-decoration:none; transition:border-color 0.2s,color 0.2s,background 0.2s; }
+  .soc:hover { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.07); }
+
+  @media(max-width:960px){
+    nav { padding:16px 22px; }
+    .nav-links { display:none; }
+    section { padding:68px 22px; }
+    .hero { padding:0 22px 88px; }
+    .hero-stats { right:22px; bottom:88px; }
+    .about { grid-template-columns:1fr; gap:44px; }
+    .aimg-wrap { height:380px; }
+    .svcs-grid { grid-template-columns:1fr; }
+    .revs-grid { grid-template-columns:1fr; }
+    .loc-sec { grid-template-columns:1fr; }
+    .loc-info { padding:60px 22px; }
+    .cta-band { flex-direction:column; align-items:flex-start; padding:58px 22px; }
+    .ft { flex-direction:column; gap:38px; }
+    .flinks { flex-wrap:wrap; gap:34px; }
+    .gal { padding-left:22px; }
+    .gal-hdr { padding-right:22px; }
+    .gc { flex:0 0 290px; height:220px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><span class="g">ROCK</span>&nbsp;FITNESS</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <button class="btn-gold nav-cta" onclick="openModal('join')">Join Now</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-img"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="eline"></span>Shivarampally · Hyderabad</div>
+    <h1 class="hero-title">TRAIN ON<br>THE <span class="g">ROCK</span></h1>
+    <p class="hero-it">Where discipline meets luxury.</p>
+    <div class="hero-div"></div>
+    <p class="hero-sub">Premium fitness destination with world-class imported equipment, certified trainers, CrossFit zone, steam bath, and full locker &amp; shower facilities. Pure focus. Zero compromises.</p>
+    <div class="hero-acts">
+      <button class="btn-gold" onclick="openModal('join')">Start Today</button>
+      <button class="btn-ol" onclick="document.getElementById('gallery').scrollIntoView();">Explore Facility</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">4.7★</div><div class="stat-sep"></div><div class="stat-l">Google Rating</div></div>
+    <div class="stat"><div class="stat-n"><span id="members-count">500+</span></div><div class="stat-sep"></div><div class="stat-l">Active Members</div></div>
+    <div class="stat"><div class="stat-n">24H</div><div class="stat-sep"></div><div class="stat-l">Open Daily</div></div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="sline"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="aimg-wrap">
+    <img class="aimg" src="assets/weights_zone.png" alt="Rock Fitness Club">
+    <div class="abadge">
+      <div class="b-num">4.7</div>
+      <div><div class="b-stars">★★★★★</div><div class="b-sub">67 Google Reviews</div></div>
+    </div>
+  </div>
+  <div>
+    <div class="lbl"><span class="lline"></span>About Rock Fitness</div>
+    <h2 class="ttl">BUILT FOR<br><span class="g">CHAMPIONS</span></h2>
+    <p class="sub">Rock Fitness Club in Shivarampally sets Hyderabad's gold standard for premium fitness. Expansive floors, world-class imported equipment, and expert certified trainers — all in an environment built for serious results.</p>
+    <div class="afeats">
+      <div class="feat"><div class="ficon">🏋️</div><div><div class="fname">Imported Equipment</div><div class="fdesc">World-class machines & free weights</div></div></div>
+      <div class="feat"><div class="ficon">🎓</div><div><div class="fname">Certified Trainers</div><div class="fdesc">Expert, qualified coaching staff</div></div></div>
+      <div class="feat"><div class="ficon">🔒</div><div><div class="fname">Locker Facility</div><div class="fdesc">Secure personal storage</div></div></div>
+      <div class="feat"><div class="ficon">🚿</div><div><div class="fname">Shower Facility</div><div class="fdesc">Fresh post-workout showers</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gal" id="gallery">
+  <div class="gal-hdr">
+    <div>
+      <div class="lbl"><span class="lline"></span>Facility Gallery</div>
+      <h2 class="ttl">INSIDE THE <span class="g">ROCK</span></h2>
+    </div>
+    <p class="sub" style="max-width:255px;font-size:0.78rem;">Hover to pause. Every corner built for peak performance.</p>
+  </div>
+  <div class="gtrack-w">
+    <div class="gtrack">
+      <div class="gc"><img src="assets/hero_gym.png" alt="Main Floor"><div class="gov"><span class="glabel">Main Floor</span></div></div>
+      <div class="gc"><img src="assets/cardio_zone.png" alt="Cardio Zone"><div class="gov"><span class="glabel">Cardio Zone</span></div></div>
+      <div class="gc"><img src="assets/weights_zone.png" alt="Barbell Rack"><div class="gov"><span class="glabel">Barbell Rack</span></div></div>
+      <div class="gc"><img src="assets/cardio_zone.png" alt="Air Bikes"><div class="gov"><span class="glabel">Air Bikes</span></div></div>
+      <div class="gc"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop" alt="Premium Training"><div class="gov"><span class="glabel">Premium Training</span></div></div>
+      <div class="gc"><img src="assets/crossfit_zone.png" alt="CrossFit Rig"><div class="gov"><span class="glabel">CrossFit Rig</span></div></div>
+      
+      <!-- duplicate for endless scroll -->
+      <div class="gc"><img src="assets/hero_gym.png" alt="Main Floor"><div class="gov"><span class="glabel">Main Floor</span></div></div>
+      <div class="gc"><img src="assets/cardio_zone.png" alt="Cardio Zone"><div class="gov"><span class="glabel">Cardio Zone</span></div></div>
+      <div class="gc"><img src="assets/weights_zone.png" alt="Barbell Rack"><div class="gov"><span class="glabel">Barbell Rack</span></div></div>
+      <div class="gc"><img src="assets/cardio_zone.png" alt="Air Bikes"><div class="gov"><span class="glabel">Air Bikes</span></div></div>
+      <div class="gc"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop" alt="Premium Training"><div class="gov"><span class="glabel">Premium Training</span></div></div>
+      <div class="gc"><img src="assets/crossfit_zone.png" alt="CrossFit Rig"><div class="gov"><span class="glabel">CrossFit Rig</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="svcs" id="services">
+  <div class="lbl"><span class="lline"></span>What We Offer</div>
+  <h2 class="ttl">WORLD-CLASS <span class="g">FACILITIES</span></h2>
+  <div class="svcs-grid">
+    <div class="svc">
+      <div class="svc-n">01</div><div class="svc-ico">⚖️</div>
+      <div class="svc-nm">Weight Management</div><div class="svc-bar"></div>
+      <p class="svc-d">Science-backed programs combining cardio, strength, and nutrition guidance to help you reach and maintain your ideal body weight — sustainably.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-n">02</div><div class="svc-ico">🎯</div>
+      <div class="svc-nm">Personal Training</div><div class="svc-bar"></div>
+      <p class="svc-d">One-on-one sessions crafted around your specific goals, schedule, and fitness level. Accountability and expertise in every single rep.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-n">03</div><div class="svc-ico">💪</div>
+      <div class="svc-nm">Muscle Building</div><div class="svc-bar"></div>
+      <p class="svc-d">Structured hypertrophy programs with ROCK-branded dumbbells (2.5–50kg), barbells, plate-loaded machines, and cable stations for every muscle group.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-n">04</div><div class="svc-ico">🔴</div>
+      <div class="svc-nm">CrossFit Zone</div><div class="svc-bar"></div>
+      <p class="svc-d">Massive functional rig with pull-up bars, battle ropes, gymnastic rings, med balls, and a dedicated turf sled track for elite-level conditioning.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-n">05</div><div class="svc-ico">♨️</div>
+      <div class="svc-nm">Steam Bath</div><div class="svc-bar"></div>
+      <p class="svc-d">Decompress and accelerate muscle recovery in our premium steam bath — the perfect, restorative finish to a hard training session.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-n">06</div><div class="svc-ico">🚿</div>
+      <div class="svc-nm">Locker & Shower</div><div class="svc-bar"></div>
+      <p class="svc-d">Clean, secure lockers and hygienic shower rooms — head straight to work or your next commitment fresh and confident.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="revs" id="reviews">
+  <div class="lbl"><span class="lline"></span>Member Voices</div>
+  <h2 class="ttl">WHAT THEY <span class="g">SAY</span></h2>
+  <div class="revs-grid">
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-txt">"Best equipment in Hyderabad. The staff is incredibly supportive and the ambience is truly premium. Worth every penny."</p>
+      <div class="rev-bar"></div><div class="rev-nm">Google Member</div><div class="rev-src">Google Review</div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-txt">"Very premium and amazing ambience to do a workout. The equipment is all imported and always well maintained. Highly recommend!"</p>
+      <div class="rev-bar"></div><div class="rev-nm">Google Member</div><div class="rev-src">Google Review</div>
+    </div>
+    <div class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-txt">"Good condition gym. The certified trainer Saber bhai is very knowledgeable and motivating. The steam bath is a brilliant bonus after training."</p>
+      <div class="rev-bar"></div><div class="rev-nm">Google Member</div><div class="rev-src">Google Review</div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="loc-sec" id="location">
+  <div class="loc-info">
+    <div class="lbl"><span class="lline"></span>Find Us</div>
+    <h2 class="ttl">COME TRAIN <span class="g">WITH US</span></h2>
+    <div class="addr-rows">
+      <div class="arow"><div class="aico">📍</div><div><div class="albl">Address</div><div class="aval">Jagir, Opp. National Police Academy,<br>Shivarampally Jagir, Telangana 500052</div></div></div>
+      <div class="arow"><div class="aico">🕐</div><div><div class="albl">Hours</div><div class="aval">Open until 12:00 AM <span class="opill">Open Now</span></div></div></div>
+    </div>
+    <div class="loc-ctas">
+      <button class="btn-gold" onclick="window.open('https://maps.google.com/?q=Rock+Fitness+Studio+Shivarampally+Hyderabad','_blank')">Get Directions</button>
+      <button class="btn-ol" onclick="openModal('contact')">Contact Us</button>
+    </div>
+  </div>
+  <div class="loc-vis">
+    <img src="assets/crossfit_zone.png" alt="gym background">
+    <div class="loc-card">
+      <div class="lpin">📍</div>
+      <div class="lname">ROCK FITNESS CLUB</div>
+      <div class="laddr">Opp. National Police Academy,<br>Shivarampally, Hyderabad</div>
+      <button class="btn-gold" style="margin-top:22px;font-size:0.64rem;padding:11px 22px;" onclick="window.open('https://maps.google.com/?q=Rock+Fitness+Studio+Shivarampally+Hyderabad','_blank')">Open in Maps ↗</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div>
+    <div class="cta-ttl">READY TO<br><span class="g">TRANSFORM?</span></div>
+    <div class="cta-sub">Join Hyderabad's most premium fitness club. No waiting. No excuses.</div>
+  </div>
+  <button class="btn-gold" style="font-size:0.72rem;padding:16px 44px;white-space:nowrap;" onclick="openModal('join')">Get Membership →</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div>
+      <div class="flogo">ROCK <span>FITNESS</span></div>
+      <div class="ftag">Train on the rock. Beat the clock.</div>
+    </div>
+    <div class="flinks">
+      <div class="fcol">
+        <div class="fcolt">Explore</div>
+        <a href="#about">About Us</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#services">Services</a>
+      </div>
+      <div class="fcol">
+        <div class="fcolt">Connect</div>
+        <a href="#location">Directions</a>
+        <a href="#" onclick="openModal('contact'); return false;">Contact Us</a>
+      </div>
+    </div>
+  </div>
+  <div class="fb">
+    <div class="fcopy">© 2025 Rock Fitness Club, Shivarampally, Hyderabad. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="join-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <div class="modal-title">JOIN <span>ROCK</span></div>
+    <div class="modal-sub">Leave your details below to activate your membership.</div>
+    
+    <div class="form-msg" id="join-msg"></div>
+    
+    <form id="join-form" onsubmit="submitJoin(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="join-name" required placeholder="John Doe">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="join-email" required placeholder="john@example.com">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="join-phone" required placeholder="+91 90000 00000">
+      </div>
+      <div class="form-group">
+        <label>Select Plan</label>
+        <select id="join-plan">
+          <option value="Standard">Standard Membership</option>
+          <option value="Premium">Premium with Cardio</option>
+          <option value="Gold">Gold + Personal Training</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-gold" style="width:100%; margin-top:10px; display:flex; justify-content:center; align-items:center;">
+        Submit Application <div class="loader" id="join-loader"></div>
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="contact-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModals()">✕</button>
+    <div class="modal-title">CONTACT <span>US</span></div>
+    <div class="modal-sub">Send us an inquiry and we'll call you back today.</div>
+    
+    <div class="form-msg" id="contact-msg"></div>
+    
+    <form id="contact-form" onsubmit="submitContact(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="contact-name" required placeholder="John Doe">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="contact-phone" required placeholder="+91 90000 00000">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="contact-message" rows="3" placeholder="How can we help you?"></textarea>
+      </div>
+      <button type="submit" class="btn-gold" style="width:100%; margin-top:10px; display:flex; justify-content:center; align-items:center;">
+        Send Message <div class="loader" id="contact-loader"></div>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Dynamic stats loading from backend
+  fetch('/api/stats')
+    .then(res => res.json())
+    .then(data => {
+      if(data.membersCount) {
+        document.getElementById('members-count').innerText = data.membersCount + '+';
+      }
+    })
+    .catch(err => console.error(err));
+
+  function openModal(type) {
+    document.getElementById(type + '-modal').classList.add('active');
+  }
+
+  function closeModals() {
+    document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    document.querySelectorAll('.form-msg').forEach(m => { m.classList.remove('success', 'error'); m.textContent = ''; });
+  }
+
+  async function submitJoin(e) {
+    e.preventDefault();
+    const btnLoader = document.getElementById('join-loader');
+    const msgBox = document.getElementById('join-msg');
+    btnLoader.style.display = 'block';
+    msgBox.className = 'form-msg';
+
+    const data = {
+      name: document.getElementById('join-name').value,
+      email: document.getElementById('join-email').value,
+      phone: document.getElementById('join-phone').value,
+      plan: document.getElementById('join-plan').value
+    };
+
+    try {
+      const response = await fetch('/api/join', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      
+      if(response.ok) {
+        msgBox.textContent = result.message;
+        msgBox.classList.add('success');
+        document.getElementById('join-form').reset();
+      } else {
+        msgBox.textContent = result.error || 'Server error';
+        msgBox.classList.add('error');
+      }
+    } catch(err) {
+      msgBox.textContent = 'Network error. Please try again.';
+      msgBox.classList.add('error');
+    }
+    
+    btnLoader.style.display = 'none';
+  }
+
+  async function submitContact(e) {
+    e.preventDefault();
+    const btnLoader = document.getElementById('contact-loader');
+    const msgBox = document.getElementById('contact-msg');
+    btnLoader.style.display = 'block';
+    msgBox.className = 'form-msg';
+
+    const data = {
+      name: document.getElementById('contact-name').value,
+      phone: document.getElementById('contact-phone').value,
+      message: document.getElementById('contact-message').value
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      
+      if(response.ok) {
+        msgBox.textContent = result.message;
+        msgBox.classList.add('success');
+        document.getElementById('contact-form').reset();
+      } else {
+        msgBox.textContent = result.error || 'Server error';
+        msgBox.classList.add('error');
+      }
+    } catch(err) {
+      msgBox.textContent = 'Network error. Please try again.';
+      msgBox.classList.add('error');
+    }
+    
+    btnLoader.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
